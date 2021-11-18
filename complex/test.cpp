@@ -58,15 +58,15 @@ public:
 
     Complex operator*(const Complex& other) const {
         Complex(c);
-        c._real = _real * other._real;
-        c._imaginary = _imaginary * other._imaginary;
+        c._real = _real * other._real - _imaginary * other._imaginary;
+        c._imaginary = _imaginary * other._real + _real * other._imaginary;
         return(c);
     }
 
     Complex operator/(const Complex& other) const {
         Complex(c);
-        c._real = _real / other._real;
-        c._imaginary = _imaginary / other._imaginary;
+        c._real = (_real * other._real + _imaginary * other._imaginary) / (other._real * other._real + other._imaginary * other._imaginary);
+        c._imaginary = (_imaginary * other._real - _real * other._imaginary) / (other._real * other._real + other._imaginary * other._imaginary);
         return(c);
     }
 
@@ -75,9 +75,14 @@ public:
     }
 
     double argument() const {
+        return(atan(_real / _imaginary));
     }
 
     Complex Conjugate() const {
+        Complex(c);
+        c._real = _real;
+        c._imaginary = -_imaginary;
+        return(c);
     }
 
 private:
